@@ -128,6 +128,17 @@ public class NoteService {
                 .map(NoteResponse::fromEntity)
                 .collect(Collectors.toList());
     }
+    @Transactional(readOnly = true)
+    public NoteResponse getNoteById(String id, User user) {
+        Note note = noteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Note not found"));
+
+        if (!note.getUser().getId().equals(user.getId())) {
+            throw new RuntimeException("Not authorized to view this note");
+        }
+
+        return NoteResponse.fromEntity(note);
+    }
 
     @Transactional
     public void deleteNote(String id, User user) {

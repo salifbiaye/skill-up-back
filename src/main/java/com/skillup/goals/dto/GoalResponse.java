@@ -18,6 +18,7 @@ public class GoalResponse {
     private String description;
     private LocalDateTime dueDate;
     private String status;
+    private Integer progress;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String userId;
@@ -30,6 +31,7 @@ public class GoalResponse {
                 .description(goal.getDescription())
                 .dueDate(goal.getDueDate())
                 .status(goal.getStatus().name())
+                .progress(goal.getProgress())
                 .createdAt(goal.getCreatedAt())
                 .updatedAt(goal.getUpdatedAt())
                 .userId(goal.getUser().getId())

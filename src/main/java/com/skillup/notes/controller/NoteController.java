@@ -32,6 +32,13 @@ public class NoteController {
             @AuthenticationPrincipal User user) {
         return ResponseEntity.ok(noteService.updateNote(id, request, user));
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<NoteResponse> getNoteById(
+            @AuthenticationPrincipal User user,
+            @PathVariable String id){
+
+        return ResponseEntity.ok(noteService.getNoteById(id,user));
+    }
 
     @GetMapping
     public ResponseEntity<List<NoteResponse>> getUserNotes(

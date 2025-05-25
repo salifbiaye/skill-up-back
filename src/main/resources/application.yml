@@ -26,4 +26,10 @@ jwt:
 logging:
   level:
     org.springframework.security: DEBUG
-    com.skillup: DEBUG 
+    com.skillup: DEBUG
+
+openrouter:
+  api:
+    key: "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" # Remplacer avec votre clé API OpenRouter
+    url: "https://openrouter.ai/api/v1"
+  model: "google/gemma-3n-e4b-it:free" # Modèle gratuit de Google Gemma
