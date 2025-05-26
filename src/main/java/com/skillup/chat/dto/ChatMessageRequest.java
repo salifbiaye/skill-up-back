@@ -22,7 +22,7 @@ public class ChatMessageRequest {
         private String noteTitle;
         private String noteContent;
         private List<NoteInfo> notes;
-        private String action; // "summarize" | "review" | "list"
+        private String action; // "summarize" | "review" | "quiz"
     }
 
     @Data

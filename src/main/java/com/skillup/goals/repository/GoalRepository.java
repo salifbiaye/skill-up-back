@@ -11,4 +11,5 @@ import java.util.List;
 public interface GoalRepository extends JpaRepository<Goal, String> {
     List<Goal> findByUserOrderByCreatedAtDesc(User user);
     List<Goal> findByUserAndStatusOrderByCreatedAtDesc(User user, Goal.GoalStatus status);
-} 
+    long countByUser(User user);
+}

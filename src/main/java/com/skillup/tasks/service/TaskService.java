@@ -1,5 +1,6 @@
 package com.skillup.tasks.service;
 
+import com.skillup.achievements.service.AchievementProgressService;
 import com.skillup.auth.model.User;
 import com.skillup.goals.model.Goal;
 import com.skillup.goals.repository.GoalRepository;
@@ -20,6 +21,7 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
     private final GoalRepository goalRepository;
+    private final AchievementProgressService achievementProgressService;
 
     @Transactional
     public TaskResponse createTask(TaskRequest request, User user) {
@@ -83,6 +85,12 @@ public class TaskService {
 
         task.setStatus(status);
         task = taskRepository.save(task);
+        
+        // Si la tâche est marquée comme terminée, mettre à jour l'achievement "Tâches accomplies"
+        if (status == Task.TaskStatus.COMPLETED) {
+            achievementProgressService.checkTaskCompleted(user);
+        }
+        
         return TaskResponse.fromEntity(task);
     }
 

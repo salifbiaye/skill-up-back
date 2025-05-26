@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/goals")
@@ -61,10 +63,19 @@ public class GoalController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGoal(
+    public ResponseEntity<?> deleteGoal(
             @PathVariable String id,
             @AuthenticationPrincipal User user) {
-        goalService.deleteGoal(id, user);
-        return ResponseEntity.noContent().build();
+        boolean deleted = goalService.deleteGoal(id, user);
+        
+        if (deleted) {
+            // L'objectif a été supprimé avec succès
+            return ResponseEntity.noContent().build();
+        } else {
+            // L'objectif n'a pas pu être supprimé car il a des tâches associées
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Impossible de supprimer cet objectif car il a des tâches associées.");
+            return ResponseEntity.badRequest().body(response);
+        }
     }
-} 
+}

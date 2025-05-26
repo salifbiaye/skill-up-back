@@ -1,5 +1,7 @@
 package com.skillup.auth.service;
 
+import com.skillup.achievements.service.AchievementInitService;
+import com.skillup.achievements.service.AchievementProgressService;
 import com.skillup.auth.dto.AuthResponse;
 import com.skillup.auth.dto.LoginRequest;
 import com.skillup.auth.dto.RegisterRequest;
@@ -7,6 +9,7 @@ import com.skillup.auth.mapper.UserMapper;
 import com.skillup.auth.model.User;
 import com.skillup.auth.repository.UserRepository;
 import com.skillup.common.security.JwtUtil;
+import com.skillup.profile.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,8 +25,11 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final AchievementProgressService achievementProgressService;
     private final JwtUtil jwtUtil;
     private final UserMapper userMapper;
+    private final ProfileService profileService;
+    private final AchievementInitService achievementInitService;
 
     @Transactional
     public AuthResponse register(RegisterRequest request) {
@@ -35,6 +41,12 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         user = userRepository.save(user);
+        
+        // Créer automatiquement un profil avec des données par défaut
+        profileService.createProfileWithDefaults(user);
+        
+        // Initialiser les achievements par défaut
+        achievementInitService.initializeAchievements(user);
 
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
@@ -57,6 +69,9 @@ public class AuthService {
 
         User user = userRepository.findByEmail(request.getEmail())
             .orElseThrow(() -> new RuntimeException("User not found"));
+            
+        // Mettre à jour l'achievement "Apprentissage constant"
+        achievementProgressService.checkUserLogin(user);
 
         String token = jwtUtil.generateToken(authentication);
         String refreshToken = jwtUtil.generateRefreshToken(user.getEmail());

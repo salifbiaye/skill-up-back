@@ -14,4 +14,5 @@ public interface NoteRepository extends JpaRepository<Note, String> {
     List<Note> findByUserOrderByCreatedAtDesc(User user);
     List<Note> findByUserAndGoalOrderByCreatedAtDesc(User user, Goal goal);
     List<Note> findByUserAndTaskOrderByCreatedAtDesc(User user, Task task);
-} 
+    long countByUser(User user);
+}

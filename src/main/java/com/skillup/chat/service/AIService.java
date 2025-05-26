@@ -111,6 +111,13 @@ public class AIService {
                         systemPrompt.append("\n\nDonne des suggestions pour améliorer cette note.");
                         context.add(new Message("system", systemPrompt.toString()));
                         return context; // Retourner directement ce contexte spécifique
+                    }else if ("quiz".equals(metadata.getAction()) && metadata.getNoteContent() != null) {
+                        systemPrompt.append("Tu es un assistant qui crée des quiz basés sur des notes. ");
+                        systemPrompt.append("Voici le contenu de la note intitulée '").append(metadata.getNoteTitle())
+                                   .append("' que tu dois utiliser pour créer un quiz: \n\n").append(metadata.getNoteContent());
+                        systemPrompt.append("\n\nCrée un quiz avec des questions à choix multiples.");
+                        context.add(new Message("system", systemPrompt.toString()));
+                        return context; // Retourner directement ce contexte spécifique
                     }
                     break;
                     

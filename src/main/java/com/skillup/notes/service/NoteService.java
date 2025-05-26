@@ -1,5 +1,6 @@
 package com.skillup.notes.service;
 
+import com.skillup.achievements.service.AchievementProgressService;
 import com.skillup.auth.model.User;
 import com.skillup.goals.model.Goal;
 import com.skillup.goals.repository.GoalRepository;
@@ -23,6 +24,7 @@ public class NoteService {
     private final NoteRepository noteRepository;
     private final GoalRepository goalRepository;
     private final TaskRepository taskRepository;
+    private final AchievementProgressService achievementProgressService;
 
     @Transactional
     public NoteResponse createNote(NoteRequest request, User user) {
@@ -50,6 +52,10 @@ public class NoteService {
         }
 
         note = noteRepository.save(note);
+
+        // Mettre à jour l'achievement "Prise de notes"
+        achievementProgressService.checkNoteCreated(user);
+
         return NoteResponse.fromEntity(note);
     }
 
@@ -151,4 +157,4 @@ public class NoteService {
 
         noteRepository.delete(note);
     }
-} 
+}

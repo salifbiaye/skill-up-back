@@ -19,4 +19,9 @@ public interface TaskRepository extends JpaRepository<Task, String> {
             Task.TaskStatus status, 
             Task.TaskPriority priority
     );
-} 
+    
+    long countByUserAndStatus(User user, Task.TaskStatus status);
+    
+    // Méthode pour vérifier si un objectif a des tâches associées
+    boolean existsByGoal(Goal goal);
+}
