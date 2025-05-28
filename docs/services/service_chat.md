@@ -324,47 +324,6 @@ private List<Message> prepareContext(List<ChatMessage> messages, String messageT
 | POST | `/chat-sessions/{sessionId}/messages` | Envoyer un message utilisateur | `sessionId` dans le chemin, ChatMessageRequest | ChatMessageResponse |
 | POST | `/chat-sessions/{sessionId}/ai-response` | Obtenir une réponse IA | `sessionId` dans le chemin, AIResponseRequest (messageId) | ChatMessageResponse |
 
-## Types de Messages Spéciaux
-
-Le service de chat prend en charge différents types de messages spéciaux pour des cas d'utilisation spécifiques :
-
-### 1. Aide à la Définition d'Objectifs (`objective_help`)
-
-Ce type de message permet à l'IA de fournir des conseils personnalisés pour la définition d'objectifs SMART (Spécifiques, Mesurables, Atteignables, Réalistes, Temporels).
-
-**Exemple de métadonnées :**
-```json
-{
-  "objectiveTitle": "Apprendre Python",
-  "objectiveDescription": "Je souhaite apprendre les bases de Python pour l'analyse de données",
-  "timeframe": "3 mois"
-}
-```
-
-### 2. Génération de Quiz (`note_quiz`)
-
-Ce type de message permet à l'IA de générer des quiz basés sur les notes de l'utilisateur pour faciliter l'apprentissage.
-
-**Exemple de métadonnées :**
-```json
-{
-  "noteTitle": "Introduction à JavaScript",
-  "noteContent": "JavaScript est un langage de programmation qui permet d'implémenter des mécanismes complexes sur une page web..."
-}
-```
-
-### 3. Résumé de Contenu (`content_summary`)
-
-Ce type de message permet à l'IA de résumer du contenu pour l'utilisateur.
-
-**Exemple de métadonnées :**
-```json
-{
-  "contentType": "article",
-  "content": "Le texte complet de l'article à résumer..."
-}
-```
-
 ## Défis et Solutions
 
 ### Défi : Gestion du Contexte de Conversation
