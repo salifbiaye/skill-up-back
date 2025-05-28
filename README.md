@@ -1,87 +1,65 @@
-# Skill Up Backend
+# Skill-Up Backend
 
-Backend application for Skill Up, a personal development and learning management system.
+![Skill-Up Logo](https://img.shields.io/badge/Skill--Up-Backend-blue)
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.3-green)
 
-## Technologies Used
+Backend de l'application Skill-Up, une plateforme de développement personnel permettant de gérer objectifs, tâches et notes d'apprentissage.
+
+## ✨ Fonctionnalités
+
+- **Authentification** avec JWT
+- **Gestion des objectifs** et suivi de progression
+- **Gestion des tâches** liées aux objectifs
+- **Prise de notes** d'apprentissage
+- **Système d'achievements** pour motiver les utilisateurs
+- **Assistant IA** via chat pour l'aide et les conseils
+
+## 🏗 Architecture
+
+Application Spring Boot organisée en modules fonctionnels :
+
+```
+com.skillup/
+├── auth/           # Authentification
+├── goals/          # Objectifs
+├── tasks/          # Tâches
+├── notes/          # Notes
+├── achievements/   # Achievements
+├── profile/        # Profil utilisateur
+├── chat/           # Assistant IA
+```
+
+## 🛠 Technologies
 
 - Java 17
 - Spring Boot 3.2.3
-- Spring Security
+- Spring Security avec JWT
 - Spring Data JPA
-- PostgreSQL
-- JWT Authentication
+- MySQL
 - Maven
+- Docker
 
-## Prerequisites
+## 📚 API Principales
 
-- Java 17 or higher
-- Maven
-- PostgreSQL
+- **Auth** : `/api/auth/register`, `/api/auth/login`
+- **Objectifs** : `/api/objectives`
+- **Tâches** : `/api/tasks`
+- **Notes** : `/api/notes`
+- **Achievements** : `/api/achievements`
+- **Profil** : `/api/profile`
+- **Chat** : `/api/chat-sessions`
 
-## Setup
+## 📖 Documentation
 
-1. Clone the repository
-2. Create a PostgreSQL database named `skillup`
-3. Update the database configuration in `src/main/resources/application.yml` if needed
-4. Set the JWT secret key in environment variable `JWT_SECRET` or update it in `application.yml`
+Consultez la [documentation complète](docs/index.md) pour plus d'informations sur :
+- [Rapport Backend](docs/rapport_backend.md)
+- [Configuration DevOps](docs/rapport_devops.md) par Salif Biaye
+- [Services détaillés](docs/services/)
 
-## Running the Application
+## 👥 Équipe
 
-```bash
-mvn spring-boot:run
-```
-
-The application will start on port 8080 with the context path `/api`.
-
-## API Endpoints
-
-### Authentication
-
-- POST `/api/auth/register` - Register a new user
-- POST `/api/auth/login` - Login and get JWT token
-
-### Notes
-
-- GET `/api/notes` - Get all notes
-- POST `/api/notes` - Create a new note
-- PUT `/api/notes/{id}` - Update a note
-- DELETE `/api/notes/{id}` - Delete a note
-
-### Objectives
-
-- GET `/api/objectives` - Get all objectives
-- POST `/api/objectives` - Create a new objective
-- PUT `/api/objectives/{id}` - Update an objective
-- DELETE `/api/objectives/{id}` - Delete an objective
-- PATCH `/api/objectives/{id}/progress` - Update objective progress
-- PATCH `/api/objectives/{id}/status` - Update objective status
-
-### Tasks
-
-- GET `/api/tasks` - Get all tasks
-- POST `/api/tasks` - Create a new task
-- PUT `/api/tasks/{id}` - Update a task
-- DELETE `/api/tasks/{id}` - Delete a task
-- PATCH `/api/tasks/{id}/status` - Update task status
-
-## Security
-
-The application uses JWT (JSON Web Token) for authentication. To access protected endpoints:
-
-1. Register or login to get a JWT token
-2. Include the token in the Authorization header: `Bearer <token>`
-
-## Development
-
-### Project Structure
-
-```
-src/main/java/com/skillup/
-├── controller/     # REST controllers
-├── service/        # Business logic
-├── repository/     # Data access
-├── model/          # Entity classes
-├── dto/            # Data transfer objects
-├── security/       # Security configuration
-└── exception/      # Exception handling
-``` # skill-up-back
+Projet réalisé par :
+- **Cheikh Ahmed Tidiane Thiandoum** - Développeur Backend
+- **Awaa Ndiaye** - Développeuse Backend
+- **Salif Biaye** - DevOps
