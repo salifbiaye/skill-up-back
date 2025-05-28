@@ -69,4 +69,11 @@ public class TaskController {
         taskService.deleteTask(id, user);
         return ResponseEntity.noContent().build();
     }
+    
+    @GetMapping("/goal/{id}")
+    public ResponseEntity<List<TaskResponse>> getTasksByGoal(
+            @PathVariable String id,
+            @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(taskService.getUserTasksByGoal(user, id));
+    }
 } 

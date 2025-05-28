@@ -110,6 +110,18 @@ public class GoalService {
                 .map(GoalResponse::fromEntity)
                 .collect(Collectors.toList());
     }
+    
+    @Transactional(readOnly = true)
+    public GoalResponse getGoalById(String id, User user) {
+        Goal goal = goalRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Goal not found"));
+
+        if (!goal.getUser().getId().equals(user.getId())) {
+            throw new RuntimeException("Not authorized to access this goal");
+        }
+
+        return GoalResponse.fromEntity(goal);
+    }
 
     @Transactional
     public boolean deleteGoal(String id, User user) {

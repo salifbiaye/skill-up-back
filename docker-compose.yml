@@ -19,9 +19,9 @@ services:
       - JWT_SECRET=404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
       - JWT_EXPIRATION=86400000
       - JWT_REFRESH_TOKEN_EXPIRATION=604800000
-      - OPENROUTER_API_KEY=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
+      - OPENROUTER_API_KEY=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
       - OPENROUTER_API_URL=https://openrouter.ai/api/v1
-      - OPENROUTER_MODEL=google/gemma-3n-e4b-it:free
+      - OPENROUTER_MODEL=qwen/qwen3-30b-a3b:free
     depends_on:
       - db
     networks:
@@ -55,6 +55,20 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - skillup-network
+
+  # Service Adminer pour la gestion de base de données
+  adminer:
+    image: adminer:latest
+    container_name: skillup-adminer
+    restart: always
+    ports:
+      - "8081:8080"
+    environment:
+      - ADMINER_DEFAULT_SERVER=db
+    depends_on:
+      - db
     networks:
       - skillup-network
 

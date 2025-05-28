@@ -62,6 +62,13 @@ public class GoalController {
         return ResponseEntity.ok(goalService.getUserGoals(user));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<GoalResponse> getGoalById(
+            @PathVariable String id,
+            @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(goalService.getGoalById(id, user));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteGoal(
             @PathVariable String id,
